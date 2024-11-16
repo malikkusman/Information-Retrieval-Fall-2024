@@ -1,3 +1,2 @@
-Title: The Science of Springs
-Content:
-The science of springs is fascinating. It involves concepts of tension, elasticity, and force.
+Title: The Basics of Quantum Physics
+Content: Quantum physics explains the behavior of particles at a microscopic level. Concepts like superposition and entanglement have revolutionized our understanding of matter.
