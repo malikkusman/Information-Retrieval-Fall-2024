@@ -1,1 +1,1 @@
-# Information-Retrieval-Fall-2024
+# Information-Retrieval
