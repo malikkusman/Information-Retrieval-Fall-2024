@@ -1,0 +1,20 @@
+1 | Red Sneakers | Footwear | Comfortable running shoes with a breathable upper and cushioned sole.
+2 | Blue Denim Jacket | Apparel | Stylish and warm denim jacket with a modern slim fit.
+3 | Wireless Earbuds | Electronics | High-quality wireless audio with noise cancellation and long battery life.
+4 | Black Leather Boots | Footwear | Durable and stylish boots, perfect for winter and outdoor activities.
+5 | Sporty T-shirt | Apparel | Breathable and lightweight shirt designed for active wear and sports.
+6 | Green Hiking Backpack | Outdoors | Spacious and ergonomic backpack with multiple compartments for hiking trips.
+7 | Smartwatch | Electronics | Fitness tracking smartwatch with heart rate monitor and GPS.
+8 | Brown Leather Wallet | Accessories | Classic and durable wallet made of premium leather.
+9 | Winter Coat | Apparel | Warm and insulated coat ideal for cold weather with a sleek, modern look.
+10 | Wireless Mouse | Electronics | Ergonomic wireless mouse with high precision and long battery life.
+11 | Yoga Mat | Sports | Non-slip and cushioned yoga mat for comfort during exercise sessions.
+12 | Running Shorts | Apparel | Lightweight running shorts with moisture-wicking fabric for a comfortable run.
+13 | Leather Handbag | Accessories | Elegant leather handbag with plenty of space for daily essentials.
+14 | Portable Power Bank | Electronics | High-capacity portable charger for devices on the go.
+15 | Sports Sunglasses | Accessories | UV-protective sunglasses designed for outdoor sports and activities.
+16 | Gaming Headset | Electronics | High-quality gaming headset with surround sound and noise-canceling microphone.
+17 | Casual Sneakers | Footwear | Stylish casual sneakers designed for everyday comfort and style.
+18 | Coffee Maker | Appliances | Compact coffee maker with multiple brewing options and easy-to-clean design.
+19 | Graphic T-shirt | Apparel | Soft cotton T-shirt featuring a vibrant graphic design.
+20 | Mountain Bike | Outdoors | Durable mountain bike with shock absorbers, perfect for rugged terrains.

@@ -1,0 +1,4 @@
+ The quick brown fox jumps over the lazy dog.
+ Machine learning models are fascinating.
+Information retrieval is an interesting field of study.
+Foxes are wild animals commonly found in forests.
