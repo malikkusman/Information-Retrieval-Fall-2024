@@ -1,0 +1,8 @@
+Machine learning is a field of AI.
+Deep learning algorithms are a subset of machine learning.
+Artificial intelligence in healthcare is growing rapidly.
+Natural language processing is a subfield of AI focused on the interaction between computers and human languages.
+Reinforcement learning is an area of machine learning that deals with how software agents ought to take actions in an environment.
+Computer vision enables machines to interpret and make decisions based on visual data from the world.
+AI ethics is an emerging field that examines the moral implications of artificial intelligence.
+
