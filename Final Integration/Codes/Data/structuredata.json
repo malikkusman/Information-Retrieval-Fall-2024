@@ -1,0 +1,83 @@
+[
+    {
+      "Name": {"First Name": "Hamza", "Last Name": "Rasheed"},
+      "Id": 26,
+      "Age": 20,
+      "Gender": "Male",
+      "Email": "hamza.rasheed@example.com",
+      "Phone": "+923001234567",
+      "Address": {"House": "123", "Street": "Main Street", "City": "Lahore"},
+      "Courses": {
+        "Course A": {"Subject Name": "Math", "Grade": "A"},
+        "Course B": {"Subject Name": "Science", "Grade": "B"},
+        "Course C": {"Subject Name": "English", "Grade": "A"}
+      },
+      "Hobbies": ["Reading", "Coding", "Cycling"],
+      "CGPA": 3.8
+    },
+    {
+      "Name": {"First Name": "Ali", "Last Name": "Khan"},
+      "Id": 27,
+      "Age": 21,
+      "Gender": "Male",
+      "Email": "ali.khan@example.com",
+      "Phone": "+923002345678",
+      "Address": {"House": "456", "Street": "Second Street", "City": "Karachi"},
+      "Courses": {
+        "Course A": {"Subject Name": "History", "Grade": "B"},
+        "Course B": {"Subject Name": "Biology", "Grade": "A"},
+        "Course C": {"Subject Name": "English", "Grade": "B"}
+      },
+      "Hobbies": ["Swimming", "Gaming", "Traveling"],
+      "CGPA": 3.5
+    },
+    {
+      "Name": {"First Name": "Ayesha", "Last Name": "Iqbal"},
+      "Id": 28,
+      "Age": 22,
+      "Gender": "Female",
+      "Email": "ayesha.iqbal@example.com",
+      "Phone": "+923003456789",
+      "Address": {"House": "789", "Street": "Third Avenue", "City": "Islamabad"},
+      "Courses": {
+        "Course A": {"Subject Name": "Physics", "Grade": "A"},
+        "Course B": {"Subject Name": "Chemistry", "Grade": "A"},
+        "Course C": {"Subject Name": "Computer Science", "Grade": "A"}
+      },
+      "Hobbies": ["Photography", "Painting", "Yoga"],
+      "CGPA": 4.0
+    },
+    {
+      "Name": {"First Name": "Sara", "Last Name": "Ahmed"},
+      "Id": 29,
+      "Age": 20,
+      "Gender": "Female",
+      "Email": "sara.ahmed@example.com",
+      "Phone": "+923004567890",
+      "Address": {"House": "321", "Street": "Fourth Lane", "City": "Peshawar"},
+      "Courses": {
+        "Course A": {"Subject Name": "Economics", "Grade": "B"},
+        "Course B": {"Subject Name": "Statistics", "Grade": "B"},
+        "Course C": {"Subject Name": "Psychology", "Grade": "A"}
+      },
+      "Hobbies": ["Cooking", "Dancing", "Writing"],
+      "CGPA": 3.6
+    },
+    {
+      "Name": {"First Name": "Zain", "Last Name": "Hassan"},
+      "Id": 30,
+      "Age": 23,
+      "Gender": "Male",
+      "Email": "zain.hassan@example.com",
+      "Phone": "+923005678901",
+      "Address": {"House": "654", "Street": "Fifth Street", "City": "Quetta"},
+      "Courses": {
+        "Course A": {"Subject Name": "Political Science", "Grade": "A"},
+        "Course B": {"Subject Name": "Sociology", "Grade": "B"},
+        "Course C": {"Subject Name": "Philosophy", "Grade": "A"}
+      },
+      "Hobbies": ["Hiking", "Fishing", "Chess"],
+      "CGPA": 3.7
+    }
+  ]
+  

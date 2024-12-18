@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ranking Engine</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Welcome to the Ranking Engine</h1>
+            <p>Find what you're looking for with advanced ranking methods!</p>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <form method="POST" action="/rank" class="search-form">
+                <div class="input-group">
+                    <input 
+                        type="text" 
+                        name="query" 
+                        placeholder="Enter your search query..." 
+                        required 
+                        class="search-input">
+                </div>
+
+                <div class="ranking-group">
+                    <label for="ranking-method">Ranking Method:</label>
+                    <select name="ranking_method" id="ranking-method" class="ranking-select">
+                        <option value="keyword">Keyword Matching</option>
+                        <option value="tfidf">TF-IDF</option>
+                        <option value="cosine">Cosine Similarity</option>
+                        <option value="bim">Binary Independence Model</option>
+                        <option value="nol">Non Overlapped Model</option>
+                    </select>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="search-button">Search</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Rank Engine. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

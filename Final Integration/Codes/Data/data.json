@@ -1,0 +1,14 @@
+[
+    {
+        "id": "doc1",
+        "content": "Hello, this is doc1 and it has the link with [doc2](doc2)"
+    },
+    {
+        "id": "doc2",
+        "content": "This is doc2 and it is linked with [doc1](doc1) and [doc3](doc3)"
+    },
+    {
+        "id": "doc3",
+        "content": "This is doc3 and it is linked with [doc2](doc2)"
+    }
+]

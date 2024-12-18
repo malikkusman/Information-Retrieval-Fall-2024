@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Data - Interactive View</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .container-fluid {
+            background-color: #0056b3;
+            color: #fff;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        #tree-view {
+            width: 30%;
+            background-color: #ffffff;
+            border-right: 1px solid #ddd;
+            overflow-y: auto;
+            padding: 15px;
+            height: 100%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #tree-view h5 {
+            color: #0056b3;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        #tree-view ul {
+            list-style-type: none;
+            padding-left: 15px;
+        }
+
+        #tree-view li {
+            margin-bottom: 8px;
+        }
+
+        #tree-view .collapsible {
+            cursor: pointer;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        #tree-view .nested {
+            display: none;
+            margin-left: 15px;
+        }
+
+        .collapsible::before {
+            content: "▶";
+            margin-right: 5px;
+        }
+
+        .collapsible.expanded::before {
+            content: "▼";
+        }
+
+        #content-view {
+            width: 70%;
+            padding: 20px;
+            height: 100%;
+            overflow-y: auto;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        #content-view h2 {
+            color: #0056b3;
+            margin-bottom: 20px;
+        }
+
+        .student-detail {
+            background-color: #f1f1f1;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        select.form-select {
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="container-fluid text-center">
+        <h1>Student Data Viewer</h1>
+        <label for="student-select" class="mt-2">Select Student:</label>
+        <select id="student-select" class="form-select d-inline-block mt-2">
+            <option value="">-- Select a Student --</option>
+            {% for student in students %}
+                <option value="{{ student.Id }}">{{ student.Name["First Name"] }} {{ student.Name["Last Name"] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container d-flex">
+        <!-- Tree View -->
+        <div id="tree-view">
+            <h5>Student Data View</h5>
+            <ul id="tree-container"></ul>
+        </div>
+
+        <!-- Content View -->
+        <div id="content-view">
+            <h2>Details</h2>
+            <div id="content-details">Select a node to view details here.</div>
+        </div>
+    </div>
+
+    <!-- Script -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            const treeContainer = $("#tree-container");
+            const contentDetails = $("#content-details");
+
+            // Handle student selection
+            $("#student-select").change(function () {
+                const studentId = $(this).val();
+                if (studentId) {
+                    $.get(`/student/${studentId}`, function (student) {
+                        // Clear previous tree and content
+                        treeContainer.empty();
+                        contentDetails.text("Select a node to view details here.");
+
+                        // Build tree view
+                        buildTreeView(student, treeContainer);
+                    });
+                } else {
+                    treeContainer.empty();
+                    contentDetails.text("Select a student to view their details.");
+                }
+            });
+
+            // Build Tree View
+            function buildTreeView(data, container) {
+                Object.keys(data).forEach(key => {
+                    const value = data[key];
+                    if (typeof value === "object" && !Array.isArray(value)) {
+                        // Nested object
+                        const parent = $(`<li><span class="collapsible">${key}</span><ul class="nested"></ul></li>`);
+                        container.append(parent);
+                        buildTreeView(value, parent.find(".nested"));
+                    } else if (Array.isArray(value)) {
+                        // Array values
+                        const list = $(`<li><span class="collapsible">${key}</span><ul class="nested"></ul></li>`);
+                        container.append(list);
+                        value.forEach(item => {
+                            const listItem = $(`<li>${item}</li>`);
+                            list.find(".nested").append(listItem);
+                            // Add click listener for array items
+                            listItem.click(function (e) {
+                                e.stopPropagation();
+                                contentDetails.html(`<strong>${key}:</strong> ${item}`);
+                            });
+                        });
+                    } else {
+                        // Leaf node
+                        const listItem = $(`<li>${key}: ${value}</li>`);
+                        container.append(listItem);
+                        // Add click listener for leaf nodes
+                        listItem.click(function (e) {
+                            e.stopPropagation();
+                            contentDetails.html(`<strong>${key}:</strong> ${value}`);
+                        });
+                    }
+                });
+
+                // Add collapsible functionality
+                $(".collapsible").off("click").click(function (e) {
+                    e.stopPropagation();
+                    $(this).toggleClass("expanded");
+                    $(this).next(".nested").toggle();
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Search Results for "{{ query }}"</h1>
+            <p>Ranking Method: <strong>{{ method }}</strong></p>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            {% if results %}
+                <div class="results-grid">
+                    {% for title, snippet, score in results %}
+                        <div class="result-card">
+                            <h2>{{ title }}</h2>
+                         <p class="snippet">{{ snippet }}</p>
+                            <p class="score">Score: <strong>{{ score }}</strong></p>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="no-results">No results found.</p>
+            {% endif %}
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <a href="/" class="back-link">Back to Search</a>
+        </div>
+    </footer>
+</body>
+</html>

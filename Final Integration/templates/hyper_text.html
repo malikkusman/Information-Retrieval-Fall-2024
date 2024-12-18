@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hypertext Model</title>
+  <script src="{{ url_for('static', filename='d3.v7.min.js') }}"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background-color: #f8f9fa;
+    }
+
+    #graph {
+      width: 50%;
+      height: 100%;
+      border-right: 2px solid #ddd;
+      background-color: #fff;
+      overflow: hidden;
+    }
+
+    #content {
+      width: 50%;
+      padding: 20px;
+      background-color: #ffffff;
+      box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
+      overflow-y: auto;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      color: #007bff;
+      margin-bottom: 20px;
+    }
+
+    #node-content {
+      font-size: 1.2rem;
+      color: #333;
+    }
+
+    .link {
+      stroke: #007bff;
+      stroke-width: 2px;
+      stroke-opacity: 0.7;
+    }
+
+    .node {
+      fill: #69b3a2;
+      stroke: #fff;
+      stroke-width: 1.5px;
+      cursor: pointer;
+    }
+
+    .node.highlighted {
+      fill: #f39c12;
+      stroke: #e74c3c;
+      stroke-width: 3px;
+    }
+
+    .node-label {
+      font-size: 1rem;
+      fill: #333;
+      pointer-events: none;
+    }
+
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #0056b3;
+    }
+
+    .node-info {
+      margin-top: 20px;
+    }
+
+    .link:hover {
+      stroke-width: 4px;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 20px;
+      font-size: 1.5rem;
+      color: #007bff;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div id="graph"></div>
+  <div id="content">
+    <h2>Document Content</h2>
+    <p id="node-content" class="loading">Loading...</p>
+  </div>
+
+  <script>
+    const graphDiv = document.getElementById("graph");
+    const contentDiv = document.getElementById("node-content");
+
+    // Fetch graph data
+    fetch("/get-graph")
+      .then((response) => response.json())
+      .then((data) => {
+        const width = graphDiv.clientWidth;
+        const height = graphDiv.clientHeight;
+
+        const svg = d3
+          .select("#graph")
+          .append("svg")
+          .attr("width", "100%")
+          .attr("height", "100%");
+
+        // Draw links
+        const link = svg
+          .selectAll("line")
+          .data(data.links)
+          .enter()
+          .append("line")
+          .attr("class", "link")
+          .style("stroke", "black")
+          .style("stroke-width", 2)
+          .style("stroke-opacity", 0.8);
+
+        // Draw nodes
+        const node = svg
+          .selectAll("circle")
+          .data(data.nodes)
+          .enter()
+          .append("circle")
+          .attr("class", "node")
+          .attr("r", 15)
+          .call(
+            d3
+              .drag()
+              .on("start", (event, d) => {
+                if (!event.active) simulation.alphaTarget(0.3).restart();
+                d.fx = d.x;
+                d.fy = d.y;
+              })
+              .on("drag", (event, d) => {
+                d.fx = event.x;
+                d.fy = event.y;
+              })
+              .on("end", (event, d) => {
+                if (!event.active) simulation.alphaTarget(0);
+                d.fx = null;
+                d.fy = null;
+              })
+          )
+          .on("click", (event, d) => {
+            fetch(`/get-doc/${d.id}`)
+              .then((response) => response.json())
+              .then((doc) => {
+                if (doc.error) {
+                  contentDiv.textContent = doc.error;
+                } else {
+                  contentDiv.innerHTML = doc.content.replace(
+                    /\[(.*?)\]\((.*?)\)/g,
+                    '<a href="#" onclick="loadDoc(\'$2\')">$1</a>'
+                  );
+                }
+              });
+            highlightNode(d.id);
+          });
+
+        node.append("title").text((d) => d.id);
+
+        // Display node labels
+        const labels = svg
+          .append("g")
+          .selectAll("text")
+          .data(data.nodes)
+          .enter()
+          .append("text")
+          .attr("class", "node-label")
+          .attr("dy", -20)
+          .attr("text-anchor", "middle")
+          .text((d) => d.name || d.id);
+
+        const simulation = d3
+          .forceSimulation(data.nodes)
+          .force("link", d3.forceLink(data.links).id((d) => d.id).distance(100))
+          .force("charge", d3.forceManyBody())
+          .force("center", d3.forceCenter(width / 2, height / 2));
+
+        simulation.on("tick", () => {
+          link
+            .attr("x1", (d) => d.source.x)
+            .attr("y1", (d) => d.source.y)
+            .attr("x2", (d) => d.target.x)
+            .attr("y2", (d) => d.target.y);
+
+          node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
+          labels.attr("x", (d) => d.x).attr("y", (d) => d.y);
+        });
+      });
+
+    function highlightNode(nodeId) {
+      d3.selectAll(".node").classed("highlighted", false);
+      d3.selectAll(".node")
+        .filter((d) => d.id === nodeId)
+        .classed("highlighted", true);
+    }
+
+    // Load document content
+    function loadDoc(docId) {
+      fetch(`/get-doc/${docId}`)
+        .then((response) => response.json())
+        .then((doc) => {
+          if (doc.error) {
+            contentDiv.textContent = doc.error;
+          } else {
+            contentDiv.innerHTML = doc.content.replace(
+              /\[(.*?)\]\((.*?)\)/g,
+              '<a href="#" onclick="loadDoc(\'$2\')">$1</a>'
+            );
+          }
+        });
+      highlightNode(docId);
+    }
+  </script>
+
+</body>
+</html>
