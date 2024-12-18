@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Search</h1>
+<form method="POST" class="mb-4">
+    <div class="input-group">
+        <input type="text" name="query" class="form-control" placeholder="Enter search term" value="{{ query }}">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+</form>
+{% if results %}
+<h5>Results:</h5>
+<ul>
+    {% for title, paras in results.items() %}
+    <li>
+        <a href="{{ url_for('show_section', section_title=title) }}">{{ title }}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No results found.</p>
+{% endif %}
+{% endblock %}

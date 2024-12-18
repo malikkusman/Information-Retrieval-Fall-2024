@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ category }}</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">{{ category }}</h1>
+        <div class="row">
+            {% for item in content %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item['Title'] }}</h5>
+                            <p class="card-text"><strong>Price:</strong> {{ item['Price'] }}</p>
+                            {% if item.get('Location') %}
+                                <p class="card-text"><strong>Location:</strong> {{ item['Location'] }}</p>
+                            {% endif %}
+                            {% if item.get('Rating') is not none %}
+                                <p class="card-text"><strong>Rating:</strong> {{ item['Rating'] }} stars</p>
+                            {% endif %}
+                        </div>
+                        {% if item.get('Image URL') %}
+                            <img src="{{ item['Image URL'] }}" class="card-img-bottom" alt="Image" style="height: 200px; object-fit: cover;">
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <a href="{{ url_for('index') }}" class="btn btn-primary mt-3">Back to Home</a>
+    </div>
+    <!-- Include Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

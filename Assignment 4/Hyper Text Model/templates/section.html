@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-md-3">
+        <h5>Sections</h5>
+        <ul class="list-group">
+            {% for section in sections %}
+            <li class="list-group-item">
+                <a href="{{ url_for('show_section', section_title=section) }}">{{ section }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="col-md-9">
+        {% if content %}
+        <h1>{{ section_title }}</h1>
+        {% for paragraph in content %}
+        <p>{{ paragraph | safe }}</p>
+        {% endfor %}
+        {% else %}
+        <h1>Welcome!</h1>
+        <p>Select a section from the menu to explore.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
